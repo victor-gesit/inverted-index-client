@@ -17,8 +17,8 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home</a></li>
-			<li><a href="#">About inVidex</a></i>
-      <li><a href="#">Instructions</a></li>
+			<li><a href="#about-invidex" data-toggle="modal">About inVidex</a></i>
+      <li><a href="#how-to-use" data-toggle="modal">Instructions</a></li>
     </ul>
   </div>
 </nav>
@@ -27,11 +27,13 @@
 	<div class="row">
 	<div class="col-md-8 col-md-offset-2" align="center">
 		<h1 class="brand-name">inVidex</h1>
-		<form>
+		<form class="upload-file">
 			<h4>Upload a file</h4>
-			<div class="form-group">
+			<div class="input-group">
 			  <input type="file" name="files" multiple class="btn btn-primary" accept=".json, .JSON">
 			</div>
+			<br>
+			<button type="submit" class="btn btn-primary">Create index</button>
 		</form>
 	</div>
 	</div>
@@ -43,7 +45,7 @@
 			</div>
 				<form>
 				<div class="col-sm-12">
-				  <div class="form-group input" align="center">
+				  <div class="form-group" align="center">
 				    <select class="form-control" id="file">
 				      <option selected disabled value"">Select a file</option>
 				      <option>All</option>
@@ -66,10 +68,11 @@
 		</div>
 		</div>
 		<div class="col-md-8">
-			<table class="table">
+			<table class="table myTable">
+			<caption><h4><span class="label label-default">book1.json</span></h4></caption>
 			  <thead class="thead-inverse">
 			    <tr>
-			      <th>Tokens</th>
+			      <th>Word Tokens</th>
 			      <th>Eze goes to school</th>
 			      <th>Alice in Wonderland</th>
 			    </tr>
@@ -98,6 +101,46 @@
 			
 		</table>
 	</div>
+
+	<!-- Modals for Instruction -->
+	<div id="how-to-use" class="modal fade">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title">Instructions</h4>
+	            </div>
+	            <div class="modal-body">
+	                <h4 align="center">How to Use</h4>
+	                <ol>
+	                	<li>Create a file in a text editor and save it as type json</li>
+	                	<li></li>
+	                </ol>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- Modals for about inVidex-->
+	<div id="about-invidex" class="modal fade">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title">About inVidex</h4>
+	            </div>
+	            <div class="modal-body">
+	                <p>inVidex is an application that creates an inverted index of the content </p>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
 </div>
 </body>
 </html>
