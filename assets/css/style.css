@@ -1,0 +1,15 @@
+.present {
+	color: green;
+}
+
+.absent {
+	color: red;
+}
+
+.brand-name {
+}
+
+.brand-container {
+	color: #001A09;
+	background: grey;
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Inverted Index Client</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">inVidex</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+			<li><a href="#">About inVidex</a></i>
+      <li><a href="#">Instructions</a></li>
+    </ul>
+  </div>
+</nav>
+<body>
+<div class='container-fluid'>
+	<div class="row">
+	<div class="col-md-8 col-md-offset-2" align="center">
+		<h1 class="brand-name">inVidex</h1>
+		<form>
+			<h4>Upload a file</h4>
+			<div class="form-group">
+			  <input type="file" name="files" multiple class="btn btn-primary" accept=".json, .JSON">
+			</div>
+		</form>
+	</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<h3 align="center">Search Index</h3>
+			</div>
+				<form>
+				<div class="col-sm-12">
+				  <div class="form-group input" align="center">
+				    <select class="form-control" id="file">
+				      <option selected disabled value"">Select a file</option>
+				      <option>All</option>
+				      <option>book1.json</option>
+				      <option>book2.json</option>
+				      <option>book3.json</option>
+				      <option>book4.json</option>
+				    </select>
+				  </div>
+				</div>
+				<div class="col-sm-12">
+					  <div class="input-group" align="center">
+					  	 <input type="text" class="form-control" name="terms" placeholder="Search for...">
+					  	 <span class="input-group-btn">
+					     	<button type="submit" class="btn btn-primary">Search index</button>
+					  	 </span>
+					  </div>
+				</div>
+				</form>
+		</div>
+		</div>
+		<div class="col-md-8">
+			<table class="table">
+			  <thead class="thead-inverse">
+			    <tr>
+			      <th>Tokens</th>
+			      <th>Eze goes to school</th>
+			      <th>Alice in Wonderland</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <th scope="row">John</th>
+			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
+			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">Jacob</th>
+			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
+			      <td class="absent"><span class="glyphicon glyphicon-remove"></span></td>
+			    </tr>
+			    <tr>
+			      <th scope="row">Larry</th>
+			      <td class="absent"><span class="glyphicon glyphicon-remove"></span></td>
+			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
+			    </tr>
+			  </tbody>
+			</table>
+
+		</div>
+		<table>
+			
+		</table>
+	</div>
+</div>
+</body>
+</html>
