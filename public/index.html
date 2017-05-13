@@ -34,7 +34,6 @@
 	<div class="row" ng-controller="createIndex">
 	<div class="col-md-8 col-md-offset-2" align="center">
 		<h1 class="brand-name">inVidex</h1>
-		<h4>{{creating}}</h4>
 		<form class="upload-file" name="form">
 			<h4>Upload a file</h4>
 			 <input type="file" name="files" ngf-select ng-model="files" ngf-multiple="true"/>
@@ -49,32 +48,31 @@
 			<div class="col-sm-8 col-sm-offset-2">
 				<h3 align="center">Search Index</h3>
 			</div>
-		<h3>{{searching}}</h3>
-				<form>
-					<div class="col-sm-12">
-					  <div class="form-group" align="center">
-					    <select class="form-control" id="file" ng-model="searchFileName">
-					      <option selected disabled hiden value"">Select a file</option>
-					      <option>All</option>
-					      <option ng-repeat="flieName in fileList">{{fileName}}</option>
-					    </select>
+			<form>
+				<div class="col-sm-12">
+				  <div class="form-group" align="center">
+				    <select class="form-control" id="file" ng-model="searchFileName">
+				      <option selected disabled hiden value"">Select a file</option>
+				      <option>All</option>
+				      <option ng-repeat="fileName in fileList">{{fileName}}</option>
+				    </select>
+				  </div>
+				</div>
+				<div class="col-sm-12">
+					  <div class="input-group" align="center">
+					  	 <input type="text" class="form-control" ng-model="searchTerms" name="terms" placeholder="Search for...">
+					  	 <span class="input-group-btn">
+					     	<button ng-click="searchIndex()" class="btn btn-primary">Search index</button>
+					  	 </span>
 					  </div>
-					</div>
-					<div class="col-sm-12">
-						  <div class="input-group" align="center">
-						  	 <input type="text" class="form-control" ng-model="searchTerms" name="terms" placeholder="Search for...">
-						  	 <span class="input-group-btn">
-						     	<button ng-click="searchIndex()" class="btn btn-primary">Search index</button>
-						  	 </span>
-						  </div>
-					</div>
-				</form>
+				</div>
+			</form>
 		</div>
 		</div>
 		<div class="col-md-8" ng-controller='populateIndex'>
 			<h2 align="center"><span class="glyphicon glyphicon-list"></span>    Index List</h2>
 			<table class="table myTable" ng-repeat="fileName in fileList">
-			<caption><h4><span class="label label-default">fileName</span></h4></caption>
+			<caption><h4><span class="label label-default">{{fileName}}</span></h4></caption>
 			  <thead class="thead-inverse">
 			    <tr>
 			      <th>Word Tokens</th>
@@ -85,23 +83,10 @@
 			  <div>
 			  	<div>
 				    <tr ng-repeat="(token, index) in indices[fileName].index" >
-
 					      <th scope="row">{{token}}</th>
-					      <div ng-repeat="(titleIndex, value) in indices[fileName].titles">
-					      	<td class="{{isPresent(token, titleIndex).class}}" ><span class="{{isPresent(token, titleIndex).icon}}"></span></td>
-					      </div>
+					      	<td ng-repeat="(titleIndex, value) in indices[fileName].titles" class="{{isPresent(token, fileName, titleIndex).class}}" ><span class="{{isPresent(token, fileName, titleIndex).icon}}"></span></td>
 				    </tr>
 			    </div>
-			    <tr> 
-			      <th scope="row">Jacob</th>
-			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
-			      <td class="absent"><span class="glyphicon glyphicon-remove"></span></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">Larry</th>
-			      <td class="absent"><span class="glyphicon glyphicon-remove"></span></td>
-			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
-			    </tr>
 			  </tbody>
 			</table>
 

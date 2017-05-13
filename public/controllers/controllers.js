@@ -13,9 +13,9 @@ app.controller('createIndex', function($scope, $rootScope, services) {
         for(let fileName in result) {
           if (result.hasOwnProperty(fileName)) {
             if (Object.keys(result[fileName])[0] !== 'error') {
-              console.log(fileName);
-              $rootScope.fileList.append(fileName);
+              $rootScope.fileList.push(fileName);
               $rootScope.indices[fileName] = result[fileName];
+              $rootScope.searchResults = $rootScope.indices;
             }
           }
         }
@@ -25,8 +25,7 @@ app.controller('createIndex', function($scope, $rootScope, services) {
 });
 
 app.controller('populateIndex', function($scope, $rootScope) {
-  $scope.searchResults = $rootScope.indices;
-  $scope.isPresent = function(token, titleIndex) {
+  $scope.isPresent = function(token, fileName, titleIndex) {
     const indexOfToken = $rootScope.searchResults[fileName].index[token];
     const titleIndexAsNumber = Number(titleIndex);
     if(indexOfToken.indexOf(titleIndexAsNumber) >= 0) {

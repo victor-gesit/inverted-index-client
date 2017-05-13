@@ -1,1 +1,5 @@
-const app = angular.module('inVidex', ['ngFileUpload']);
+const app = angular.module('inVidex', ['ngFileUpload'])
+.run(function($rootScope){
+	$rootScope.indices = {};
+	$rootScope.fileList = [];
+})

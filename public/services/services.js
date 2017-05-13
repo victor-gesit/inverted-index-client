@@ -28,8 +28,9 @@ app.service('services', function(Upload, $rootScope){
 		});
 		*/
 	};
-	this.searchIndex = function(indices, fileName, terms, callback){
+	this.searchIndex = function(indices, fileName, terms, $http, callback){
 
+		/*
 		let searchFileName = undefined;
 		if(fileName !== "All"){
 			searchFileName = fileName;
@@ -46,19 +47,23 @@ app.service('services', function(Upload, $rootScope){
 		}, function(res){
 			console.log('Error: ' + res.data);
 		})
-
-		/*
+		*/
+		
 		$http({
 			method:'POST',
 			url: 'http://localhost:5000/api/search',
 			data: {
 				index: indices,
-				fileName: searchFileName,
+				fileName: fileName,
 				terms: terms
 			}
 		}).then(function(res){
+			console.log(res.data)
 			callback(res.data);
+		}, function(res){
+			console.log('error');
+			console.log(res);
 		});
-		*/
+
 	};
 })
