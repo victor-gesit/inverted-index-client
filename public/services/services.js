@@ -17,37 +17,19 @@ app.service('services', function($http, $rootScope){
 			callback(res.data);
 		});
 	};
-	this.searchIndex = function(fileName, terms, callback){
+	this.searchIndex = function(indices, fileName, terms, callback){
+		let searchFileName = undefined;
+		if(fileName !== "All"){
+			searchFileName = fileName;
+		}
 		$http({
 			method:'POST',
 			url: 'http://localhost:5000/api/search',
 			data: {
-    index: {
-      'book1.json': { index: {
-        an: [0],
-        into: [0, 1],
-        inquiry: [0],
-        is: [0, 1],
-        string: [0],
-        the: [1],
-        this: [0],
-        used: [1]
-      }
-      },
-      'book2.json': { index: {
-        an: [0, 1],
-        boy: [0, 1],
-        into: [0],
-        lost: [0, 1],
-        mango: [0],
-        table: [1],
-        train: [0],
-        user: [1]
-      }
-      }
-    },
-    terms: ['an', 'into']
-  }
+				index: indices,
+				fileName: searchFileName,
+				terms: terms
+			}
 		}).then(function(res){
 			callback(res.data);
 		});

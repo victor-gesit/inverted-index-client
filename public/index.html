@@ -39,7 +39,7 @@
 			<h4>Upload a file</h4>
 			 <input type="file" file-model="files" multiple name="file"/>
 			<br>
-			<button ng-click="createIndex(files.files)" class="btn btn-primary">Create index</button>
+			<button ng-click="createAnIndex(files)" class="btn btn-primary">Create index</button>
 		</form>
 	</div>
 	</div>
@@ -56,7 +56,7 @@
 					    <select class="form-control" id="file" ng-model="searchFileName">
 					      <option selected disabled hiden value"">Select a file</option>
 					      <option>All</option>
-					      <option></option>
+					      <option ng-repeat="flieName in fileList">{{fileName}}</option>
 					    </select>
 					  </div>
 					</div>
@@ -71,25 +71,28 @@
 				</form>
 		</div>
 		</div>
-		<div class="col-md-8">
-			<table class="table myTable">
-			<caption><h4><span class="label label-default">fileName </span></h4></caption>
+		<div class="col-md-8" ng-controller='populateIndex'>
+			<h2 align="center"><span class="glyphicon glyphicon-list"></span>    Index List</h2>
+			<table class="table myTable" ng-repeat="fileName in fileList">
+			<caption><h4><span class="label label-default">fileName</span></h4></caption>
 			  <thead class="thead-inverse">
 			    <tr>
 			      <th>Word Tokens</th>
-			      <th>value</th>
+			      <th ng-repeat="(key, value) in indices[fileName].titles">{{value}}</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			  <div>
 			  	<div>
-				    <tr >
-				      <th scope="row">{{token}}</th>
-				      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
-				      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
+				    <tr ng-repeat="(token, index) in indices[fileName].index" >
+
+					      <th scope="row">{{token}}</th>
+					      <div ng-repeat="(titleIndex, value) in indices[fileName].titles">
+					      	<td class="{{isPresent(token, titleIndex).class}}" ><span class="{{isPresent(token, titleIndex).icon}}"></span></td>
+					      </div>
 				    </tr>
 			    </div>
-			    <tr>
+			    <tr> 
 			      <th scope="row">Jacob</th>
 			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
 			      <td class="absent"><span class="glyphicon glyphicon-remove"></span></td>
