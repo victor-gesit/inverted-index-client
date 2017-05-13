@@ -1,10 +1,20 @@
-app.service('services', function($http, $rootScope){
+app.service('services', function(Upload, $rootScope){
 	this.createIndex = function(files, callback) {
+		//if (files $$ files.length){
+			Upload.upload({
+				url: 'http://localhost:5000/api/create',
+				arrayKey: '',
+				data: {files: files}
+			}).then(function(res) {
+				callback(res.data);
+			}, function(res){
+				console.log(res.data);
+			});			
+		//}
+
+		/*
 		const fd = new FormData();
-		files.forEach((file, index) => {
-			fd.append('files', files[index]);
-		});
-		
+		console.log(fd.files);
 		$http({
 			method: 'POST',
 			url: 'http://localhost:5000/api/create',
@@ -16,12 +26,28 @@ app.service('services', function($http, $rootScope){
 			console.log(res.data);
 			callback(res.data);
 		});
+		*/
 	};
 	this.searchIndex = function(indices, fileName, terms, callback){
+
 		let searchFileName = undefined;
 		if(fileName !== "All"){
 			searchFileName = fileName;
 		}
+		Upload.upload({
+			url: 'http://localhost:5000/api/search',
+			data: {
+				index: indices,
+				fileName, searchFileName,
+				terms: terms
+			}
+		}).then(function(res){
+			callback(res.data);
+		}, function(res){
+			console.log('Error: ' + res.data);
+		})
+
+		/*
 		$http({
 			method:'POST',
 			url: 'http://localhost:5000/api/search',
@@ -33,5 +59,6 @@ app.service('services', function($http, $rootScope){
 		}).then(function(res){
 			callback(res.data);
 		});
+		*/
 	};
 })

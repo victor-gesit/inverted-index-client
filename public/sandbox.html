@@ -7,9 +7,11 @@
 <body>
 
 <div name="test" ng-app="myApp" ng-controller="myCtrl" ng-init="obi=25; fbName='Idem Gesit'; ada=20;">
+	<w3-test-directive></w3-test-directive>
+   <w3-test-directive></w3-test-directive>
   <p>First Name : <input type="text" ng-model="firstName"></p>
   <p>Last Name: <input type="text" ng-model="lastName"></p>
-  <h1>Hello {{name}}</h1>
+  <h1>Hello </h1>
   {{firstName + lastName}}
   <p>{{ "Hello from the other side"}}</p>
   <input type="text" ng-model="myCol" style="background-color: {{myCol}}" name="">
@@ -53,7 +55,6 @@
 		</tr>
   	</table>
   </div>
-  <w3-test-directive></w3-test-directive>
   <form name="myForm">
 	  <input type="email" name="myEmail">
 	  <span ng-show="myForm.myEmail.$error.email">Not an email</span>

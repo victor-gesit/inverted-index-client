@@ -1,1 +1,1 @@
-const app = angular.module('inVidex', []);
+const app = angular.module('inVidex', ['ngFileUpload']);
