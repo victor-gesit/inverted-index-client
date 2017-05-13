@@ -4,7 +4,8 @@
   "description": "This is the client side of the inverted-index-api repository",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,10 @@
     "babel-preset-env": "^1.4.0",
     "browser-sync": "^2.18.8",
     "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "babel-register": "^6.24.1",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2"
   }
 }

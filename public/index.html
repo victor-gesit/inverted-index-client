@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='inVidex'>
 <head>
 	<title>Inverted Index Client</title>
-	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<!-- jQuery library -->
+	<link rel="stylesheet" href="../assets/css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<!--
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload-all.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload-shim.min.js"></script>
+-->
+	<script src="app.js"></script>
+	<script src="./controllers/controllers.js"></script>
+	<script src="./services/services.js"></script>
+
 </head>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -24,65 +31,64 @@
 </nav>
 <body>
 <div class='container-fluid'>
-	<div class="row">
+	<div class="row" ng-controller="createIndex">
 	<div class="col-md-8 col-md-offset-2" align="center">
 		<h1 class="brand-name">inVidex</h1>
+		<h4>{{creating}}</h4>
 		<form class="upload-file">
 			<h4>Upload a file</h4>
-			<div class="input-group">
-			  <input type="file" name="files" multiple class="btn btn-primary" accept=".json, .JSON">
-			</div>
+			 <input type="file" file-model="files" multiple name="file"/>
 			<br>
-			<button type="submit" class="btn btn-primary">Create index</button>
+			<button ng-click="createIndex(files.files)" class="btn btn-primary">Create index</button>
 		</form>
 	</div>
 	</div>
 	<div class="row">
 		<div class="col-md-4">
-		<div class="row">
+		<div class="row" ng-controller="searchIndex">
 			<div class="col-sm-8 col-sm-offset-2">
 				<h3 align="center">Search Index</h3>
 			</div>
+		<h3>{{searching}}</h3>
 				<form>
-				<div class="col-sm-12">
-				  <div class="form-group" align="center">
-				    <select class="form-control" id="file">
-				      <option selected disabled value"">Select a file</option>
-				      <option>All</option>
-				      <option>book1.json</option>
-				      <option>book2.json</option>
-				      <option>book3.json</option>
-				      <option>book4.json</option>
-				    </select>
-				  </div>
-				</div>
-				<div class="col-sm-12">
-					  <div class="input-group" align="center">
-					  	 <input type="text" class="form-control" name="terms" placeholder="Search for...">
-					  	 <span class="input-group-btn">
-					     	<button type="submit" class="btn btn-primary">Search index</button>
-					  	 </span>
+					<div class="col-sm-12">
+					  <div class="form-group" align="center">
+					    <select class="form-control" id="file" ng-model="searchFileName">
+					      <option selected disabled hiden value"">Select a file</option>
+					      <option>All</option>
+					      <option></option>
+					    </select>
 					  </div>
-				</div>
+					</div>
+					<div class="col-sm-12">
+						  <div class="input-group" align="center">
+						  	 <input type="text" class="form-control" ng-model="searchTerms" name="terms" placeholder="Search for...">
+						  	 <span class="input-group-btn">
+						     	<button ng-click="searchIndex()" class="btn btn-primary">Search index</button>
+						  	 </span>
+						  </div>
+					</div>
 				</form>
 		</div>
 		</div>
 		<div class="col-md-8">
 			<table class="table myTable">
-			<caption><h4><span class="label label-default">book1.json</span></h4></caption>
+			<caption><h4><span class="label label-default">fileName </span></h4></caption>
 			  <thead class="thead-inverse">
 			    <tr>
 			      <th>Word Tokens</th>
-			      <th>Eze goes to school</th>
-			      <th>Alice in Wonderland</th>
+			      <th>value</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <th scope="row">John</th>
-			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
-			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
-			    </tr>
+			  <div>
+			  	<div>
+				    <tr >
+				      <th scope="row">{{token}}</th>
+				      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
+				      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
+				    </tr>
+			    </div>
 			    <tr>
 			      <th scope="row">Jacob</th>
 			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
