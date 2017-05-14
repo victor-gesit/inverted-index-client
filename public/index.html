@@ -52,9 +52,9 @@
 				<div class="col-sm-12">
 				  <div class="form-group" align="center">
 				    <select class="form-control" id="file" ng-model="searchFileName">
-				      <option selected disabled hiden value"">Select a file</option>
+				      <option selected="selected" value"">Select a file</option>
 				      <option>All</option>
-				      <option ng-repeat="fileName in fileList">{{fileName}}</option>
+				      <option ng-repeat="(fileName, present) in fileList ">{{fileName}}</option>
 				    </select>
 				  </div>
 				</div>
@@ -71,18 +71,18 @@
 		</div>
 		<div class="col-md-8" ng-controller='populateIndex'>
 			<h2 align="center"><span class="glyphicon glyphicon-list"></span>    Index List</h2>
-			<table class="table myTable" ng-repeat="fileName in fileList">
+			<table class="table myTable" ng-repeat="(fileName, present) in fileList">
 			<caption><h4><span class="label label-default">{{fileName}}</span></h4></caption>
 			  <thead class="thead-inverse">
 			    <tr>
 			      <th>Word Tokens</th>
 			      <th ng-repeat="(key, value) in indices[fileName].titles">{{value}}</th>
-			    </tr>
+			    </tr> 
 			  </thead>
 			  <tbody>
 			  <div>
 			  	<div>
-				    <tr ng-repeat="(token, index) in indices[fileName].index" >
+				    <tr ng-repeat="(token, index) in searchResults[fileName].index" >
 					      <th scope="row">{{token}}</th>
 					      	<td ng-repeat="(titleIndex, value) in indices[fileName].titles" class="{{isPresent(token, fileName, titleIndex).class}}" ><span class="{{isPresent(token, fileName, titleIndex).icon}}"></span></td>
 				    </tr>

@@ -1,4 +1,4 @@
-app.service('services', function(Upload, $rootScope){
+app.service('services', function(Upload, $rootScope, $http){
 	this.createIndex = function(files, callback) {
 		//if (files $$ files.length){
 			Upload.upload({
@@ -9,61 +9,24 @@ app.service('services', function(Upload, $rootScope){
 				callback(res.data);
 			}, function(res){
 				console.log(res.data);
-			});			
-		//}
-
-		/*
-		const fd = new FormData();
-		console.log(fd.files);
-		$http({
-			method: 'POST',
-			url: 'http://localhost:5000/api/create',
-			transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-		}).then((res) => {
-			callback(res.data);
-		}, (res) => {
-			console.log(res.data);
-			callback(res.data);
-		});
-		*/
+			});	
 	};
-	this.searchIndex = function(indices, fileName, terms, $http, callback){
 
-		/*
+	this.searchIndex = function(indices, fileToSearch, terms, callback){
 		let searchFileName = undefined;
-		if(fileName !== "All"){
-			searchFileName = fileName;
-		}
-		Upload.upload({
-			url: 'http://localhost:5000/api/search',
-			data: {
-				index: indices,
-				fileName, searchFileName,
-				terms: terms
-			}
-		}).then(function(res){
-			callback(res.data);
-		}, function(res){
-			console.log('Error: ' + res.data);
-		})
-		*/
-		
-		$http({
-			method:'POST',
-			url: 'http://localhost:5000/api/search',
-			data: {
-				index: indices,
-				fileName: fileName,
-				terms: terms
-			}
-		}).then(function(res){
-			console.log(res.data)
-			callback(res.data);
-		}, function(res){
-			console.log('error');
-			console.log(res);
-		});
-
+		if(fileToSearch !== 'All'){
+			searchFileName = fileToSearch;
+		};
+		data = {
+			index: indices,
+			terms: terms,
+			fileName: searchFileName
+		};
+		$http.post("http://localhost:5000/api/search", data)
+			.then(function(res) {
+				callback(res.data);
+			}, function(res){
+				callback(res.data);
+			})
 	};
 })
