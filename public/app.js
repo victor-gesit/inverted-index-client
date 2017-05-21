@@ -3,5 +3,7 @@ const app = angular.module('inVidex', ['ngFileUpload'])
 	$rootScope.indices = {};
 	$rootScope.fileList = {};
 	$rootScope.searchResults = {};
-	$rootScope.tokensToSearch =  {};
-})
+	$rootScope.tokensToSearch = {};
+	$rootScope.tokens = [];
+	$rootScope.allSearchTerms = '';
+});

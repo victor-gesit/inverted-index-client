@@ -60,7 +60,7 @@
 				</div>
 				<div class="col-sm-12">
 					  <div class="input-group" align="center">
-					  	 <input type="text" class="form-control" ng-model="searchTerms" name="terms" placeholder="Search for...">
+					  	 <input type="text"  class="form-control" ng-model="searchTerms" name="terms" placeholder="Search for...">
 					  	 <span class="input-group-btn">
 					     	<button ng-click="searchIndex()" class="btn btn-primary">Search index</button>
 					  	 </span>
@@ -76,7 +76,7 @@
 			  <thead class="thead-inverse">
 			    <tr>
 			      <th>Word Tokens</th>
-			      <th ng-repeat="(key, value) in indices[fileName].titles">{{value}}</th>
+			      <th ng-repeat="(key, value) in searchResults[fileName].titles">{{value}}</th>
 			    </tr> 
 			  </thead>
 			  <tbody>
@@ -84,7 +84,7 @@
 			  	<div>
 				    <tr ng-repeat="(token, index) in searchResults[fileName].index" >
 					      <th scope="row">{{token}}</th>
-					      	<td ng-repeat="(titleIndex, value) in indices[fileName].titles" class="{{isPresent(token, fileName, titleIndex).class}}" ><span class="{{isPresent(token, fileName, titleIndex).icon}}"></span></td>
+					      	<td ng-repeat="(titleIndex, value) in searchResults[fileName].titles" class="{{isPresent(token, fileName, titleIndex).class}}" ><span class="{{isPresent(token, fileName, titleIndex).icon}}"></span></td>
 				    </tr>
 			    </div>
 			  </tbody>

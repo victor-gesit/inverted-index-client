@@ -1,17 +1,17 @@
 app.controller('searchIndex', function($scope, $rootScope, services) {
 
-    services.searchIndex($rootScope.indices, $scope.searchFileName, $scope.searchTerms, function(result) {
-      if(Object.keys(result)[0] !== 'error'){
-        for(nameOfFile in result){
-          $rootScope.searchResults[nameOfFile].index = result[nameOfFile];
-        }
-      }
-    });
-
   $scope.searchIndex = function() {
-    services.searchIndex($rootScope.indices, $scope.searchFileName, $scope.searchTerms, function(result) {
+    const searchFileName = $scope.searchFileName,
+      searchTerms = $scope.searchTerms,
+      indices = $rootScope.indices;
+    services.searchIndex(indices, searchFileName, searchTerms, function (result) {
+      const searchResult = {};
       if(Object.keys(result)[0] !== 'error'){
-        for(nameOfFile in result){
+        for(let nameOfFile in result){
+          // searchResult[nameOfFile] = {};
+          // searchResult[nameOfFile].index = result[nameOfFile];
+          // searchResult[nameOfFile].titles = [];
+          // searchResult[nameOfFile].titles = $rootScope.searchResults[nameOfFile].titles;
           $rootScope.searchResults[nameOfFile].index = result[nameOfFile];
         }
       }
@@ -28,16 +28,19 @@ app.controller('createIndex', function($scope, $rootScope, services) {
             if (Object.keys(result[fileName])[0] !== 'error') {
               $rootScope.fileList[fileName] = 'present';
               $rootScope.indices[fileName] = result[fileName];
-              $rootScope.searchResults = $rootScope.indices;
+              $rootScope.searchResults[fileName] = result[fileName];
             }
           }
         }
+        //console.log($rootScope.indices);
+
       });
     }
   };
 });
 
 app.controller('populateIndex', function($scope, $rootScope) {
+
   $scope.isPresent = function(token, fileName, titleIndex) {
     const indexOfToken = $rootScope.searchResults[fileName].index[token];
     const titleIndexAsNumber = Number(titleIndex);
