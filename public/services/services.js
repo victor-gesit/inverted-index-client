@@ -2,7 +2,7 @@ app.service('services', function(Upload, $rootScope, $http){
 	this.createIndex = function(files, callback) {
 		//if (files $$ files.length){
 			Upload.upload({
-				url: 'http://localhost:8000/api/create',
+				url: 'http://invidex.herokuapp/api/create',
 				arrayKey: '',
 				data: {files: files}
 			}).then(function(res) {
@@ -23,7 +23,7 @@ app.service('services', function(Upload, $rootScope, $http){
 			terms: terms,
 			fileName: searchFileName
 		};
-		$http.post("http://localhost:8000/api/search", data)
+		$http.post("http://invidex.herokuapp.com/api/search", data)
 			.then(function(res) {
 				callback(res.data);
 			}, function(res){
