@@ -5,7 +5,7 @@ const browserSync = browSync.create();
 gulp.task('browser-sync', () => {
   browserSync.init({
     server: {
-      baseDir: './',
+      baseDir: './public/',
     }
   });
 });

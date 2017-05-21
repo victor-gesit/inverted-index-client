@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='inVidex'>
 <head>
 	<title>Inverted Index Client</title>
-	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<!-- jQuery library -->
+	<link rel="stylesheet" href="../assets/css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload-all.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload-shim.min.js"></script>
+
+	<script src="app.js"></script>
+	<script src="./controllers/controllers.js"></script>
+	<script src="./services/services.js"></script>
+
 </head>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -24,75 +31,62 @@
 </nav>
 <body>
 <div class='container-fluid'>
-	<div class="row">
+	<div class="row" ng-controller="createIndex">
 	<div class="col-md-8 col-md-offset-2" align="center">
 		<h1 class="brand-name">inVidex</h1>
-		<form class="upload-file">
+		<form class="upload-file" name="form">
 			<h4>Upload a file</h4>
-			<div class="input-group">
-			  <input type="file" name="files" multiple class="btn btn-primary" accept=".json, .JSON">
-			</div>
+			 <input type="file" name="files" ngf-select ng-model="files" ngf-multiple="true"/>
 			<br>
-			<button type="submit" class="btn btn-primary">Create index</button>
+			<button type="submit" ng-click="createAnIndex()" class="btn btn-primary">Create index</button>
 		</form>
 	</div>
 	</div>
 	<div class="row">
 		<div class="col-md-4">
-		<div class="row">
+		<div class="row" ng-controller="searchIndex">
 			<div class="col-sm-8 col-sm-offset-2">
 				<h3 align="center">Search Index</h3>
 			</div>
-				<form>
+			<form>
 				<div class="col-sm-12">
 				  <div class="form-group" align="center">
-				    <select class="form-control" id="file">
-				      <option selected disabled value"">Select a file</option>
+				    <select class="form-control" id="file" ng-model="searchFileName">
+				      <option selected="selected" value"">Select a file</option>
 				      <option>All</option>
-				      <option>book1.json</option>
-				      <option>book2.json</option>
-				      <option>book3.json</option>
-				      <option>book4.json</option>
+				      <option ng-repeat="(fileName, present) in fileList ">{{fileName}}</option>
 				    </select>
 				  </div>
 				</div>
 				<div class="col-sm-12">
 					  <div class="input-group" align="center">
-					  	 <input type="text" class="form-control" name="terms" placeholder="Search for...">
+					  	 <input type="text"  class="form-control" ng-model="searchTerms" name="terms" placeholder="Search for...">
 					  	 <span class="input-group-btn">
-					     	<button type="submit" class="btn btn-primary">Search index</button>
+					     	<button ng-click="searchIndex()" class="btn btn-primary">Search index</button>
 					  	 </span>
 					  </div>
 				</div>
-				</form>
+			</form>
 		</div>
 		</div>
-		<div class="col-md-8">
-			<table class="table myTable">
-			<caption><h4><span class="label label-default">book1.json</span></h4></caption>
+		<div class="col-md-8" ng-controller='populateIndex'>
+			<h2 align="center"><span class="glyphicon glyphicon-list"></span>    Index List</h2>
+			<table class="table myTable" ng-repeat="(fileName, present) in fileList">
+			<caption><h4><span class="label label-default">{{fileName}}</span></h4></caption>
 			  <thead class="thead-inverse">
 			    <tr>
 			      <th>Word Tokens</th>
-			      <th>Eze goes to school</th>
-			      <th>Alice in Wonderland</th>
-			    </tr>
+			      <th ng-repeat="(key, value) in searchResults[fileName].titles">{{value}}</th>
+			    </tr> 
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <th scope="row">John</th>
-			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
-			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">Jacob</th>
-			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
-			      <td class="absent"><span class="glyphicon glyphicon-remove"></span></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">Larry</th>
-			      <td class="absent"><span class="glyphicon glyphicon-remove"></span></td>
-			      <td class="present"><span class="glyphicon glyphicon-ok"></span></td>
-			    </tr>
+			  <div>
+			  	<div>
+				    <tr ng-repeat="(token, index) in searchResults[fileName].index" >
+					      <th scope="row">{{token}}</th>
+					      	<td ng-repeat="(titleIndex, value) in searchResults[fileName].titles" class="{{isPresent(token, fileName, titleIndex).class}}" ><span class="{{isPresent(token, fileName, titleIndex).icon}}"></span></td>
+				    </tr>
+			    </div>
 			  </tbody>
 			</table>
 

@@ -1,0 +1,67 @@
+ <!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<script src="./sandboxApp.js"></script>
+<script src="./sandBoxCtrl.js"></script>
+<body>
+
+<div name="test" ng-app="myApp" ng-controller="myCtrl" ng-init="obi=25; fbName='Idem Gesit'; ada=20;">
+	<w3-test-directive></w3-test-directive>
+   <w3-test-directive></w3-test-directive>
+  <p>First Name : <input type="text" ng-model="firstName"></p>
+  <p>Last Name: <input type="text" ng-model="lastName"></p>
+  <h1>Hello </h1>
+  {{firstName + lastName}}
+  <p>{{ "Hello from the other side"}}</p>
+  <input type="text" ng-model="myCol" style="background-color: {{myCol}}" name="">
+  <p> {{obi * ada}} </p>
+  <p> Total is : <span ng-bind="obi * ada"></span></p>
+  <p> Facebook Name: <span ng-bind="fbName"></span></p>
+  <p> My Facebook Name is {{fbName}} </p>
+  <div ng-controller='namesCtrl'>
+  	<h2>{{serviced}}</h2>
+  	<h2>{{myServiced}}</h2>
+  	<h1> The Time is {{theTime}} </h1>
+  	<ul>
+  		<li ng-repeat="name in names | filter:'a'">
+  			Name: {{name.name}}  Country: {{name.country}}
+  			Age: {{name.age | currency}}
+  		</li>
+  	</ul>
+  	<input type="text" ng-model="by" name="">
+  	<ul>
+  		<li ng-repeat="name in moreNames | filter:by">
+  			{{name}}
+  		</li>
+  	</ul>
+  </div>
+  <hr>
+  <div ng-controller="personCtrl">
+  	<p>Response from server: {{serverResponse}}</p>
+  	<p>Status text: {{myWelcome}} </p>
+  	<p>Reply from server: {{serverReply}}</p>
+  	<p>Full Name: {{fullName()}}</p>
+  	<p>Full Name (Upper case): {{fullName() | uppercase}}</p>
+  	
+  	<table>
+  		<tr>
+  			<th ng-click="orderBy('name')">Name</th>
+  			<th ng-click="orderBy('country')">Country</th>
+  		</tr>
+		<tr ng-repeat="person in people | orderBy:head">
+			<td>{{person.name}}</td>
+			<td>{{person.country}}</td>
+		</tr>
+  	</table>
+  </div>
+  <form name="myForm">
+	  <input type="email" name="myEmail">
+	  <span ng-show="myForm.myEmail.$error.email">Not an email</span>
+
+  </form>
+</div>
+<script>
+</script>
+</body>
+</html> 
