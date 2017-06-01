@@ -1,43 +1,45 @@
-app.controller('searchIndex', function($scope, $rootScope, services) {
-
-  $scope.searchIndex = function() {
-    const searchFileName = $scope.searchFileName,
-      searchTerms = $scope.searchTerms,
-      indices = $rootScope.indices;
-    services.searchIndex(indices, searchFileName, searchTerms, function (result) {
-      const searchResult = {};
-      if(Object.keys(result)[0] !== 'error'){
-        for(let nameOfFile in result){
-          // searchResult[nameOfFile] = {};
-          // searchResult[nameOfFile].index = result[nameOfFile];
-          // searchResult[nameOfFile].titles = [];
-          // searchResult[nameOfFile].titles = $rootScope.searchResults[nameOfFile].titles;
-          $rootScope.searchResults[nameOfFile].index = result[nameOfFile];
-        }
-      }
-    });
-  }
-});
-
 app.controller('createIndex', function($scope, $rootScope, services) {
   $scope.createAnIndex = function() {
     if($scope.form.files.$valid && $scope.files) {
       services.createIndex($scope.files, function(result){
+        $rootScope.indices = result;
         for(let fileName in result) {
           if (result.hasOwnProperty(fileName)) {
-            if (Object.keys(result[fileName])[0] !== 'error') {
+            if (Object.keys(result[fileName])[0] !== 'error' && Object.keys(result)[0] !== 'error') {
               $rootScope.fileList[fileName] = 'present';
-              $rootScope.indices[fileName] = result[fileName];
+              $rootScope.filesToDisplay[fileName] = 'present';
               $rootScope.searchResults[fileName] = result[fileName];
             }
           }
         }
-        //console.log($rootScope.indices);
-
       });
     }
   };
 });
+
+app.controller('searchIndex', function($scope, $rootScope, services) {
+  $scope.searchIndex = function() {
+    const searchFileName = $scope.searchFileName,
+      searchTerms = $scope.searchTerms,
+      indicesToSearch = $rootScope.indices;
+
+    if (searchFileName === undefined || searchFileName.length === 0) {
+      $rootScope.filesToDisplay = $rootScope.fileList;
+    } else {
+      $rootScope.filesToDisplay = { [searchFileName]: 'present' };
+    }
+    services.searchIndex(indicesToSearch, searchFileName, searchTerms, function (result) {
+      if(Object.keys(result)[0] !== 'error') {
+        for(let nameOfFile in result) {
+          if(result.hasOwnProperty(nameOfFile)) {
+            $rootScope.searchResults[nameOfFile].index = result[nameOfFile];
+          }
+        }
+      }
+    });
+  };
+});
+
 
 app.controller('populateIndex', function($scope, $rootScope) {
 
@@ -48,12 +50,12 @@ app.controller('populateIndex', function($scope, $rootScope) {
       return {
         class: "present",
         icon: "glyphicon glyphicon-ok"
-      }
+      };
     } else {
       return {
         class: "absent",
         icon: "glyphicon glyphicon-remove"
-      }
+      };
     }
-  }
+  };
 });

@@ -1,6 +1,5 @@
-app.service('services', function(Upload, $rootScope, $http){
+app.service('services', function(Upload, $rootScope, $http) {
 	this.createIndex = function(files, callback) {
-		//if (files $$ files.length){
 			Upload.upload({
 				url: 'http://invidex.herokuapp/api/create',
 				arrayKey: '',
@@ -12,14 +11,17 @@ app.service('services', function(Upload, $rootScope, $http){
 			});	
 	};
 
-	this.searchIndex = function(indices, fileToSearch, terms, callback){
-		let index = indices;
-		let searchFileName = undefined;
-		if(fileToSearch !== 'All'){
-			searchFileName = fileToSearch;
+	this.searchIndex = function(indicesToSearch, fileToSearch, terms, callback){
+		let index = indicesToSearch;
+		let searchFileName = fileToSearch;
+		if(fileToSearch === undefined ||  fileToSearch.length === 0 ){
+			searchFileName = undefined;
 		};
-		data = {
-			index: index,
+		// There is currently a bug associated with passing in indicesToSearch
+		// To sort this out, I simply do not pass in any indices to search
+		// Thereby making the API use a previously created index
+		const data = {
+			index: undefined,
 			terms: terms,
 			fileName: searchFileName
 		};

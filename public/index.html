@@ -2,6 +2,8 @@
 <html ng-app='inVidex'>
 <head>
 	<title>Inverted Index Client</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -51,16 +53,15 @@
 			<form>
 				<div class="col-sm-12">
 				  <div class="form-group" align="center">
-				    <select class="form-control" id="file" ng-model="searchFileName">
-				      <option selected="selected" value"">Select a file</option>
-				      <option>All</option>
+				    <select class="form-control" ng-change="searchIndex()" id="file" ng-model="searchFileName">
+				      <option selected="selected" value="" >All files</option>
 				      <option ng-repeat="(fileName, present) in fileList ">{{fileName}}</option>
 				    </select>
 				  </div>
 				</div>
 				<div class="col-sm-12">
 					  <div class="input-group" align="center">
-					  	 <input type="text"  class="form-control" ng-model="searchTerms" name="terms" placeholder="Search for...">
+					  	 <input type="text" ng-change="searchIndex()"  class="form-control" ng-model="searchTerms" name="terms" placeholder="Search for...">
 					  	 <span class="input-group-btn">
 					     	<button ng-click="searchIndex()" class="btn btn-primary">Search index</button>
 					  	 </span>
@@ -71,7 +72,7 @@
 		</div>
 		<div class="col-md-8" ng-controller='populateIndex'>
 			<h2 align="center"><span class="glyphicon glyphicon-list"></span>    Index List</h2>
-			<table class="table myTable" ng-repeat="(fileName, present) in fileList">
+			<table class="table myTable" ng-repeat="(fileName, present) in filesToDisplay">
 			<caption><h4><span class="label label-default">{{fileName}}</span></h4></caption>
 			  <thead class="thead-inverse">
 			    <tr>
@@ -107,8 +108,35 @@
 	            <div class="modal-body">
 	                <h4 align="center">How to Use</h4>
 	                <ol>
-	                	<li>Create a file in a text editor and save it as type json</li>
-	                	<li></li>
+	                	<li>Create a text file and save it with a .json extension</li>
+	                	<li>Define the title and text of the various books in the library according to the structure below</li>
+						<code>
+						<pre>
+[
+	{
+		"title": "Alice in Wonderland",
+		"text": "Alice falls into a rabbit hole and enters a world full of imagination."
+	},
+	{
+		"title": "Eze goes to School",
+		"text": "Eze was such a funny kid at school while alice is in wonderland"
+	}
+]
+						</pre>
+						</code>
+						<p>for multiple books, or</p>
+						<code>
+						<pre>
+{
+"title": "Eze goes",
+"text": "Eze was such"
+}
+						</pre>
+						</code>
+						<p>for a single book.</p>
+						<li>Upload the file, using the file upload button</li>
+						<li>Click on create index to populate the table</li>
+						<li>To search for specific words, use the <em>Search Index</em> button</li>
 	                </ol>
 	            </div>
 	            <div class="modal-footer">
@@ -126,10 +154,39 @@
 	                <h4 class="modal-title">About inVidex</h4>
 	            </div>
 	            <div class="modal-body">
-	                <p>inVidex is an application that creates an inverted index of the content </p>
+	                <p>inVidex is an application that applies the principle of inverted index to search through a library of books.
+						A library is created according to the structure below.
+					</p>
+					<code>
+				    <pre>
+[
+	{
+		"title": "Alice in Wonderland",
+		"text": "Alice falls into a rabbit hole and enters a world full of imagination."
+	},
+	{
+		"title": "Eze goes to School",
+		"text": "Eze was such a funny kid at school while alice is in wonderland"
+	}
+]
+					</pre>
+					</code>
+					<h6>OR</h6>
+					<code>
+					<pre>
+{
+"title": "Eze goes",
+"text": "Eze was such"
+}
+					</pre>
+					</code>
+					<p>The result of creating an index is a tabular representation of the contents of the uploaded files,
+						showing what word appears in what book.
+					</p>
 	            </div>
 	            <div class="modal-footer">
-	                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<a class="btn btn-primary" data-dismiss="modal" href="#how-to-use" data-toggle="modal">Instructions</a>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	            </div>
 	        </div>
 	    </div>
